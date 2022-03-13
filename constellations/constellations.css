@@ -79,21 +79,25 @@ h1 {
 }
 
 .constellations {
-  position: absolute;
+  position: relative;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  margin: auto;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 15px;
   zoom: 0.7;
   -moz-transform: scale(0.7);
 }
 
 .constellation {
+  position: relative;
   display: inline;
   float: left;
   width: 20%;
-  margin-left: 12vmin;
-  margin-right: 12vmin;
+  margin-left: 86px;
+  margin-right: 20px;
+  margin-top: 100px;
   text-decoration-color: white;
 }
 
