@@ -1,34 +1,140 @@
+body {
+  background-image: url("../Images/spacestars2.png");
+  width:100%;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  color: bisque;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 6px 6px 10px purple;
+
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  border-radius: 25px;
+  margin-top: 30px;
+  margin-bottom: 0px;
+  margin-right: 0px;
+  margin-left: 0px;
+  /*background-image: url("../Images/title_background.jpg");*/
+
+}
+
+.btn {
+  background-image: url("../Images/spacestars2.png");
+  color: bisque;
+  text-transform: uppercase;
+  text-shadow: 6px 6px 10px purple;
+  padding: 16px;
+  font-size: 16px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border: none;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin-top: 35px;
+  margin-left: 15px;
+}
+  
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+  
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+  
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+  
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+  
+
+.btn {
+  border-radius: 25%;
+}
+
+.btn:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.constellations {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: auto;
+  zoom: 0.7;
+  -moz-transform: scale(0.7);
+}
+
+.constellation {
+  display: inline;
+  float: left;
+  width: 20%;
+  margin-left: 12vmin;
+  margin-right: 12vmin;
+  text-decoration-color: white;
+}
+
+.info {
+  color: white;
+  text-transform: uppercase;
+  font-style: oblique;
+  font-size: x-large;
+}
+
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0,0,0,0.3);
-  }
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0,0,0,0.3);
+}
   
-  .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 10px solid white;
-    width: 80%;
-  }
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 10px solid white;
+  width: 80%;
+}
   
-  .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-  }
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
   
-  .close:hover,
-  .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-  }
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}

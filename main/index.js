@@ -65,14 +65,13 @@ function objInfo(element){
     wikiContent(element);
   }
   if((clicks % 2) == 0){
-    m_velocity = buf_m_vel;
-    for(let i = 0; i < p_radians.length; i++){
-      p_velocities = buf_p_vel;
-    };
-    modal.style.display = "none";
+    
+    span.onclick = function(){
+      modal.style.display = "none";
+      m_velocity = buf_m_vel;
+      for(let i = 0; i < p_radians.length; i++){
+        p_velocities = buf_p_vel;
+      };
+    }
   }
 };
-
-span.onclick = function(){
-    modal.style.display = "none";
-}
