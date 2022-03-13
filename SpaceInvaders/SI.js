@@ -5,10 +5,72 @@ const DIRECTION_DOWN = -1;
 const DIRECTION_UP = 1;
 const GAME_WIDTH = 1300;
 const GAME_HEIGHT = 900;
+var game_started = false
+
+function startGame(){
+    spawnenemies = false;
+    infoTime = true;
+    var startGame = document.createElement("img");
+    startGame.src = '../images/startScreen.jpg';
+    startGame.style.position = "absolute";
+    startGame.style.width = GAME_WIDTH;
+    startGame.style.height = GAME_HEIGHT;
+    startGame.id = "startScreen";
+    
+    box.appendChild(startGame);
+}
+
+function playAgain(){
+    location.reload()
+}
+
+function gameOver(){
+    spawnenemies = false;
+    bossSpawned = false;
+    infoTime = true;
+    gameEnded = true;
+    var gameOver = document.createElement("img");
+    gameOver.src = '../images/gameOver.jpg';
+    gameOver.style.position = "absolute";
+    gameOver.style.width = GAME_WIDTH;
+    gameOver.style.height = GAME_HEIGHT;
+    gameOver.style.backgroundSize = "100% 100%";
+    gameOver.onclick = function() { playAgain(); };
+    gameOver.id = "gameOver";
+
+
+    box.removeChild(player.element);
+
+    for(let b = 0; b < enemies.length; b++){
+        box.removeChild(enemies[b].element);
+    }
+    enemies.splice(0, enemies.length);
+
+    for(let b = 0; b < fireballs.length; b++){
+        box.removeChild(fireballs[b].element);
+    }
+    fireballs.splice(0, fireballs.length);
+
+    if(bossSpawned == true)
+    box.removeChild(bosses[0].element);
+    bosses.splice(0, bosses.length);
+
+    box.appendChild(gameOver);
+}
+
+function start(){
+    spawnenemies = true;
+    infoTime = false;
+    var startScreen = document.getElementById("startScreen")
+    box.removeChild(startScreen);
+    game_started = true;
+}
 
 window.onload = function(){
+    startGame();
     loadBosses();
     player.draw();
+    healthbar.drawScore();
 };
 
 function generateRandom(maxLimit){
@@ -22,8 +84,11 @@ function generateRandom(maxLimit){
         if (down[event.key] && infoTime == false){
           return;
         } else {
+            if(game_started == false){
+                start();
+            }
          //do the normal things you do when you get key presses
-         if(event.key == 'f' && infoTime == false){
+         else if(event.key == 'f' && infoTime == false){
             fireballs.push(makeFireball());
          }
         down[event.key]=true;
@@ -55,6 +120,26 @@ function playerControlls(key){
 }
 
 
+var healthbar = {
+    element: document.createElement("txt"),
+    x: 800,
+    drawScore() {
+        this.element.className = "health"
+        this.element.font = "64px Arial";
+        this.element.fillStyle = "#0095DD";
+        this.element.textContent = `${player.health}`;
+        this.element.style.width = "120px";
+        this.element.style.height = "60px";
+        this.element.style.position = "absolute";
+        this.element.style.fontSize = "xxx-large";
+        this.element.style.color = "red";
+        this.element.style.left = "100px";
+        this.element.style.top = "15px"
+        const box = document.querySelector(".game");
+        box.appendChild(this.element);
+    }
+}
+
 var scoreboard = {
     element: document.createElement("txt"),
     x: 800,
@@ -79,13 +164,14 @@ var player = {
     x : GAME_WIDTH - 750,
     y : GAME_HEIGHT - 100,
     health : 100,
-    score: 30,
+    score: 0,
     element : document.createElement("img"),
     draw(){
         this.element.style.position = "relative";
         this.element.src = '../images/red_ship-removebg-preview.png';
         setSize(this.element, 120);
         this.element.style.transform = `translate(${this.x}px, ${this.y}px)`;
+        this.element.id = "player";
         const box = document.querySelector(".game");
         box.appendChild(this.element);
     }
@@ -211,7 +297,7 @@ function loadBosses(){
 
     let boss4 = {
         img: '../images/mars.png',
-        health: 120,
+        health: 130,
         width: 200,
         height: 140,
         offset: 70,
@@ -222,7 +308,7 @@ function loadBosses(){
 
     let boss5 = {
         img: '../images/jupiter.png',
-        health: 120,
+        health: 170,
         width: 190,
         height: 130,
         offset: 60,
@@ -233,7 +319,7 @@ function loadBosses(){
     
     let boss6 = {
         img: '../images/saturn.png',
-        health: 120,
+        health: 180,
         width: 200,
         height: 80,
         offset: 60,
@@ -244,7 +330,7 @@ function loadBosses(){
     
     let boss7 = {
         img: '../images/uranus.png',
-        health: 120,
+        health: 190,
         width: 200,
         height: 140,
         offset: 70,
@@ -255,7 +341,7 @@ function loadBosses(){
     
     let boss8 = {
         img: '../images/neptune.png',
-        health: 120,
+        health: 80,
         width: 190,
         height: 140,
         offset: 60,
@@ -266,7 +352,7 @@ function loadBosses(){
 
     let boss9 = {
         img: '../images/sun.png',
-        health: 120,
+        health: 300,
         width: 180,
         height: 90,
         offset: 60,
@@ -281,6 +367,7 @@ var wikiReq = false;
 
 setInterval(() => {
     
+    if(gameEnded == false)
     player.draw();
 
     //draw balls
@@ -314,6 +401,7 @@ setInterval(() => {
         enemies[j].y += 2;
         if(enemies[j].y >= 780){
             player.health -= 10;
+            healthbar.drawScore();
             box.removeChild(enemies[j].element);
             enemies.splice(j, 1);
         }
@@ -334,7 +422,7 @@ setInterval(() => {
                 wikiContent(bosses[0].name);
                 wikiReq = false;
             }
-            //planet name is bosses[0].element.name
+                //planet name is bosses[0].element.name
             
         }else if(infoTime == false){
             spawnenemies = true;
@@ -366,12 +454,6 @@ setInterval(() => {
                     bosses[0].health -= 10;
                     if(bosses[0].checkhealth()){
                         player.score += 10;
-                        //boss is dead 
-                        /*spawnenemies = false;
-                        for(let b = 0; b < enemies.length; b++){
-                            box.removeChild(enemies[b].element);
-                        }
-                        enemies.splice(0, enemies.length);*/
                         
                         box.removeChild(bosses[0].element);
                         bosses.splice(0, 1);
@@ -394,9 +476,10 @@ setInterval(() => {
     }
 
     //check player health
-    //if(player.health <= 0){
-        //die
-    //}
+    if(player.health <= 0 && gameEnded == false){
+        
+        gameOver();
+    }
 
     //update score
     scoreboard.drawScore();
@@ -426,6 +509,7 @@ function bossCreate(){
 var infoTime = false;
 var spawnenemies = true;
 var bossSpawned = false;
+var gameEnded = false;
 const box = document.querySelector(".game");
 
 
