@@ -4,7 +4,8 @@ var searchURL = "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&e
 function wikiContent(element){
   //console.log(element);
   var url = searchURL + element;
-  
+  console.log(url);
+
   var modalTitle;
   var modalContent;
 
