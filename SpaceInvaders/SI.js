@@ -70,6 +70,7 @@ window.onload = function(){
     startGame();
     loadBosses();
     player.draw();
+    healthbar.drawScore();
 };
 
 function generateRandom(maxLimit){
@@ -119,6 +120,26 @@ function playerControlls(key){
 }
 
 
+var healthbar = {
+    element: document.createElement("txt"),
+    x: 800,
+    drawScore() {
+        this.element.className = "health"
+        this.element.font = "64px Arial";
+        this.element.fillStyle = "#0095DD";
+        this.element.textContent = `${player.health}`;
+        this.element.style.width = "120px";
+        this.element.style.height = "60px";
+        this.element.style.position = "absolute";
+        this.element.style.fontSize = "xxx-large";
+        this.element.style.color = "red";
+        this.element.style.left = "100px";
+        this.element.style.top = "15px"
+        const box = document.querySelector(".game");
+        box.appendChild(this.element);
+    }
+}
+
 var scoreboard = {
     element: document.createElement("txt"),
     x: 800,
@@ -142,7 +163,7 @@ var scoreboard = {
 var player = {
     x : GAME_WIDTH - 750,
     y : GAME_HEIGHT - 100,
-    health : 10,
+    health : 100,
     score: 0,
     element : document.createElement("img"),
     draw(){
@@ -276,7 +297,7 @@ function loadBosses(){
 
     let boss4 = {
         img: '../images/mars.png',
-        health: 120,
+        health: 130,
         width: 200,
         height: 140,
         offset: 70,
@@ -287,7 +308,7 @@ function loadBosses(){
 
     let boss5 = {
         img: '../images/jupiter.png',
-        health: 120,
+        health: 170,
         width: 190,
         height: 130,
         offset: 60,
@@ -298,7 +319,7 @@ function loadBosses(){
     
     let boss6 = {
         img: '../images/saturn.png',
-        health: 120,
+        health: 180,
         width: 200,
         height: 80,
         offset: 60,
@@ -309,7 +330,7 @@ function loadBosses(){
     
     let boss7 = {
         img: '../images/uranus.png',
-        health: 120,
+        health: 190,
         width: 200,
         height: 140,
         offset: 70,
@@ -320,7 +341,7 @@ function loadBosses(){
     
     let boss8 = {
         img: '../images/neptune.png',
-        health: 120,
+        health: 80,
         width: 190,
         height: 140,
         offset: 60,
@@ -331,7 +352,7 @@ function loadBosses(){
 
     let boss9 = {
         img: '../images/sun.png',
-        health: 120,
+        health: 300,
         width: 180,
         height: 90,
         offset: 60,
@@ -380,6 +401,7 @@ setInterval(() => {
         enemies[j].y += 2;
         if(enemies[j].y >= 780){
             player.health -= 10;
+            healthbar.drawScore();
             box.removeChild(enemies[j].element);
             enemies.splice(j, 1);
         }
