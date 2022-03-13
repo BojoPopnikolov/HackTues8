@@ -51,27 +51,24 @@ var modal = document.getElementById("modal");
 var span = document.getElementsByClassName("close")[0];
 
 function objInfo(element){
-  clicks += 1;
-  
+  wikiContent(element);
+  console.log(clicks);
   let buf_m_vel = 1;  
   let buf_p_vel = [0.8, 0.59, 0.5, 0.4, 0.22, 0.16, 0.12, 0.09];
 
-  if((clicks % 2) == 1){
-    m_velocity = 0;
-    for(let i = 0; i < p_radians.length; i++){
-      p_velocities[i] = 0;
-    }
-    modal.style.display = "block";
-    wikiContent(element);
+  
+  m_velocity = 0;
+  for(let i = 0; i < p_radians.length; i++){
+    p_velocities[i] = 0;
   }
-  if((clicks % 2) == 0){
-    
-    span.onclick = function(){
-      modal.style.display = "none";
-      m_velocity = buf_m_vel;
-      for(let i = 0; i < p_radians.length; i++){
-        p_velocities = buf_p_vel;
-      };
-    }
+  modal.style.display = "block";
+  wikiContent(element);
+  
+  span.onclick = function(){
+    modal.style.display = "none";
+    m_velocity = buf_m_vel;
+    for(let i = 0; i < p_radians.length; i++){
+      p_velocities = buf_p_vel;
+    };
   }
 };
